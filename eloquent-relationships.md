@@ -596,24 +596,24 @@ Dynamic properties are "lazy loading", meaning they will only load their relatio
 When accessing the records for a model, you may wish to limit your results based on the existence of a relationship. For example, imagine you want to retrieve all blog posts that have at least one comment. To do so, you may pass the name of the relationship to the `has` method:
 
     // Retrieve all posts that have at least one comment...
-    $posts = App\Post::has('comments')->get();
+    $posts = App\Post::has('comments')->first();
 
 You may also specify an operator and count to further customize the query:
 
     // Retrieve all posts that have three or more comments...
-    $posts = Post::has('comments', '>=', 3)->get();
+    $posts = Post::has('comments', '>=', 3)->first();
 
 Nested `has` statements may also be constructed using "dot" notation. For example, you may retrieve all posts that have at least one comment and vote:
 
     // Retrieve all posts that have at least one comment with votes...
-    $posts = Post::has('comments.votes')->get();
+    $posts = Post::has('comments.votes')->first();
 
 If you need even more power, you may use the `whereHas` and `orWhereHas` methods to put "where" conditions on your `has` queries. These methods allow you to add customized constraints to a relationship constraint, such as checking the content of a comment:
 
     // Retrieve all posts with at least one comment containing words like foo%
     $posts = Post::whereHas('comments', function ($query) {
         $query->where('content', 'like', 'foo%');
-    })->get();
+    })->first();
 
 <a name="eager-loading"></a>
 ### Eager Loading
